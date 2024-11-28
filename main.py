@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token="8185175071:AAFCjW-WvT1cZ8wBlJ5IYcr8QuBieW3xC2A")
 dp = Dispatcher()
 
-connection = sqlite3.connect('dataPlace.db')
+connection = sqlite3.connect('SiteGeoCult/SiteGeoCult/dataPlace.db')
 cursor = connection.cursor()
 
 user_data = {}
@@ -54,7 +54,7 @@ async def send_random_person(call: CallbackQuery):
 # Получить место
 @dp.callback_query(F.data == 'get_place')
 async def my_place(call: CallbackQuery):
-    with open('data.json', 'r') as json_file:
+    with open('SiteGeoCult/SiteGeoCult/data.json', 'r') as json_file:
         data = json.load(json_file)
         idChat = str(call.message.chat.id)
     if idChat in data:
@@ -65,7 +65,7 @@ async def my_place(call: CallbackQuery):
             listPlace = get_place_SQL(listPlace)
             print()
     else:
-        with open('data.json', 'w') as json_file:
+        with open('SiteGeoCult/SiteGeoCult/data.json', 'w') as json_file:
             listPlace = "Пока ничего нет..."
             data[idChat] = {'balance': '500', 'place': []}
             json.dump(data, json_file)
@@ -81,13 +81,13 @@ async def my_place(call: CallbackQuery):
 # Баланс
 @dp.callback_query(F.data == 'balance')
 async def get_balance(call: CallbackQuery):
-    with open('data.json', 'r') as json_file:
+    with open('SiteGeoCult/SiteGeoCult/data.json', 'r') as json_file:
         data = json.load(json_file)
         idChat = str(call.message.chat.id)
     if idChat in data:
         balance = data[idChat]['balance']
     else:
-        with open('data.json', 'w') as json_file:
+        with open('SiteGeoCult/SiteGeoCult/data.json', 'w') as json_file:
             balance = '500'
             data[idChat] = {'balance': '500', 'place': []}
             json.dump(data, json_file)
@@ -99,7 +99,7 @@ def main_kb():
         [InlineKeyboardButton(text="Твои места", callback_data='get_place'),
          InlineKeyboardButton(text="Узнать баланс", callback_data='balance')],
         [InlineKeyboardButton(text="Отправится в путешествие", callback_data='random_place'),
-         InlineKeyboardButton(text="Узнать баланс", web_app=WebAppInfo(url='http://mass.net.ru'))]
+         InlineKeyboardButton(text="Узнать баланс", web_app=WebAppInfo(url='https://mass.net.ru'))]
     ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=kb_list)
     return keyboard
@@ -123,10 +123,10 @@ async def echo_handler(message: Message) -> None:
         dist = math.hypot(float(place_x2) - float(place_x1), float(place_y2) - float(place_y1))
         del user_data[str(message.chat.id)]
         reward = int(1/dist*30)
-        with open('data.json', 'r') as json_file:
+        with open('SiteGeoCult/SiteGeoCult/data.json', 'r') as json_file:
             data = json.load(json_file)
             data[str(message.chat.id)]['balance'] = str(int(data[str(message.chat.id)]['balance']) + reward)
-        with open('data.json', 'w') as json_file:
+        with open('SiteGeoCult/SiteGeoCult/data.json', 'w') as json_file:
             json.dump(data, json_file)
         await message.answer(f'Вы получили {reward}')
     except KeyError:

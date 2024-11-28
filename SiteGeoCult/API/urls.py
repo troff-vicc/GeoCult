@@ -16,10 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from . import views
-from django.urls import include
+from .views import Balance
 
 urlpatterns = [
-    path('', views.index, name='home'),
-    path('api/', include('API.urls')),
+    path('balance', Balance.as_view(), name='balance'),
 ]
