@@ -121,7 +121,7 @@ async def echo_handler(message: Message) -> None:
         place_x2, place_y2 = coordinate[:coordinate.find(" ")], coordinate[coordinate.find(" ")+1:]
         dist = math.hypot(float(place_x2) - float(place_x1), float(place_y2) - float(place_y1))
         del user_data[str(message.chat.id)]
-        reward = int(1000/(dist*100))
+        reward = int(1000/dist)
         with open('data.json', 'r') as json_file:
             data = json.load(json_file)
             data[str(message.chat.id)]['balance'] = str(int(data[str(message.chat.id)]['balance']) + reward)
