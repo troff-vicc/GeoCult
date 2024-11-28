@@ -10,5 +10,5 @@ async def geocodeAddress(address):
 
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(geocodeAddress('Воронеже, ул. Карла Маркса, 72'))
-    
+    print(loop.run_until_complete(geocodeAddress('Воронеже, ул. Карла Маркса, 72')))
+#Воронеж, ул. Орджоникидзе, 39

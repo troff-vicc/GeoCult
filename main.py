@@ -25,8 +25,8 @@ user_data = {}
 def coordinate_place(id_place: int):
     dataPlace:str = cursor.execute(f'SELECT coordinate FROM place WHERE id={id_place}').fetchone()[0]
     dataPlace.find(',')
-    place_x = dataPlace[:dataPlace.find(',')]
-    place_y = dataPlace[dataPlace.find(',')+1:]
+    place_y = dataPlace[:dataPlace.find(',')]
+    place_x = dataPlace[dataPlace.find(',')+1:]
     return place_x, place_y
 
 
