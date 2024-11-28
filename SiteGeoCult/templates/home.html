@@ -2,9 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotesApp Mini App</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+        }
+        .button {
+            background-color: var(--tg-theme-button-color, #3390ec);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-<h1>1488</h1>
+    <h1>NotesApp</h1>
+    <button class="button" id="addNoteBtn">Add Note</button>
+    <button class="button" id="viewNotesBtn">View Notes</button>
+    <div id="notesList"></div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        document.getElementById('addNoteBtn').addEventListener('click', () => {
+            tg.showPopup({
+                title: 'Add Note',
+                message: 'Enter your note:',
+                buttons: [{type: 'ok', text: 'Add'}]
+            }, (buttonId) => {
+                if (buttonId === 'ok') {
+                    // Here you would typically send the note to your server
+                    alert('Note added!');
+                }
+            });
+        });
+
+        document.getElementById('viewNotesBtn').addEventListener('click', () => {
+            // Here you would typically fetch notes from your server
+            let notes = ['Sample note 1', 'Sample note 2'];
+            let notesList = document.getElementById('notesList');
+            notesList.innerHTML = notes.map(note => `<p>${note}</p>`).join('');
+        });
+    </script>
 </body>
 </html>
