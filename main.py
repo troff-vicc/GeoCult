@@ -99,7 +99,7 @@ def main_kb():
         [InlineKeyboardButton(text="Твои места", callback_data='get_place'),
          InlineKeyboardButton(text="Узнать баланс", callback_data='balance')],
         [InlineKeyboardButton(text="Отправится в путешествие", callback_data='random_place'),
-         InlineKeyboardButton(text="Узнать баланс", web_app=WebAppInfo(url='https://mass.net.ru'))]
+         InlineKeyboardButton(text="Узнать баланс", web_app=WebAppInfo(url='http://mass.net.ru'))]
     ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=kb_list)
     return keyboard
