@@ -98,7 +98,8 @@ def main_kb():
     kb_list = [
         [InlineKeyboardButton(text="Твои места", callback_data='get_place'),
          InlineKeyboardButton(text="Узнать баланс", callback_data='balance')],
-        [InlineKeyboardButton(text="Отправится в путешествие", callback_data='random_place')]
+        [InlineKeyboardButton(text="Отправится в путешествие", callback_data='random_place'),
+         InlineKeyboardButton(text="Узнать баланс", web_app=WebAppInfo(url='https://mass.net.ru/'))]
     ]
     keyboard = InlineKeyboardMarkup(inline_keyboard=kb_list)
     return keyboard
@@ -121,7 +122,7 @@ async def echo_handler(message: Message) -> None:
         place_x2, place_y2 = coordinate[:coordinate.find(" ")], coordinate[coordinate.find(" ")+1:]
         dist = math.hypot(float(place_x2) - float(place_x1), float(place_y2) - float(place_y1))
         del user_data[str(message.chat.id)]
-        reward = int(1000/dist)
+        reward = int(1/dist*30)
         with open('data.json', 'r') as json_file:
             data = json.load(json_file)
             data[str(message.chat.id)]['balance'] = str(int(data[str(message.chat.id)]['balance']) + reward)
