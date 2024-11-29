@@ -45,20 +45,21 @@ def coordinate_place(id_place: int):
     dataPlace.find(',')
     place_y = dataPlace[:dataPlace.find(',')]
     place_x = dataPlace[dataPlace.find(',')+1:]
-    return place_x, place_y
+    return place_y, place_x
 
 
 def convert_cor(y, x):
-    return 51.722721 + float(y)*DelY, 39.130576 + float(x)*DelX
+    return 51.722721 - float(y)*DelY, 39.130576 + float(x)*DelX
 
 
 def get_reward(coordinate, idPlace, idUser):
     place_y1, place_x1 = coordinate_place(idPlace)
     place_y2, place_x2 = coordinate
     dist = math.hypot(float(place_x2) - float(place_x1), float(place_y2) - float(place_y1))
-    print(dist)
-    distM = int(28114 * dist)
-    reward = int(1/dist)
+    
+    distM = int(73932 * dist)
+    reward = int(1/(dist*20))
+    
     with open('data.json', 'r') as json_file:
         data = json.load(json_file)
         data[idUser]['balance'] = str(int(data[idUser]['balance']) + reward)
