@@ -27,15 +27,18 @@ def checkBuy(idBuy, idUser):
         data = json.load(json_file)
         idChat = idUser
         balance = data[idChat]['balance']
+        had = data[idChat]['had']
     if int(balance) >= listBuy[int(idBuy)]:
-        with open('data.json', 'r') as json_file:
-            data = json.load(json_file)
-            data[idUser]['balance'] = str(int(data[idUser]['balance']) - listBuy[int(idBuy)])
-            data[idUser]['had'] = data[idUser]['had'] + [idBuy]
-        with open('data.json', 'w') as json_file:
-            json.dump(data, json_file)
-        return True
-    return False
+        if not (idBuy in had):
+            with open('data.json', 'r') as json_file:
+                data = json.load(json_file)
+                data[idUser]['balance'] = str(int(data[idUser]['balance']) - listBuy[int(idBuy)])
+                data[idUser]['had'] = data[idUser]['had'] + [idBuy]
+            with open('data.json', 'w') as json_file:
+                json.dump(data, json_file)
+            return 'success'
+        return 'already'
+    return 'There are not enough funds'
 
 
 def coordinate_place(id_place: int):
@@ -112,8 +115,11 @@ class Buy(APIView):
         if serializer.is_valid():
             idBuy = serializer.validated_data['idBuy']
             idUser = serializer.validated_data['idUser']
-            if checkBuy(idBuy, idUser):
+            checkB = checkBuy(idBuy, idUser)
+            if checkB == 'success':
                 return Response('Успешная покупку!', status=status.HTTP_201_CREATED)
+            elif checkB == 'already':
+                return Response('Уже куплено!', status=status.HTTP_201_CREATED)
             else:
                 return Response('Не хватает средств!', status=status.HTTP_201_CREATED)
         
