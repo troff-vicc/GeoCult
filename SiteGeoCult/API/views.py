@@ -63,6 +63,7 @@ def get_reward(coordinate, idPlace, idUser):
     with open('data.json', 'r') as json_file:
         data = json.load(json_file)
         data[idUser]['balance'] = str(int(data[idUser]['balance']) + reward)
+        data[idUser]['place'] = data[idUser]['place'] + [idPlace]
     with open('data.json', 'w') as json_file:
         json.dump(data, json_file)
     return reward, distM

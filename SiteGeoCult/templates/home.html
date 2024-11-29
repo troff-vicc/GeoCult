@@ -2,29 +2,43 @@
 {% load static %}
 <html lang="en">
 <head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Margarine&family=Nova+Script&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Margarine&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeoCult Mini App</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
 </head>
 <body>
-    <p id="balance">Ваш баланс: </p>
-    <h1>GeoCult</h1>
-    <a href="{% url 'my_place' %}">Мои места</a>
-    <a href="{% url 'shop' %}">Магазин</a>
-    <a href="{% url 'geo' %}">Начать путешествие</a>
+    <p id="balance"></p>
+    <div class="menu">
+        <p id="a"><a href="{% url 'my_place' %}"><img class="point" src="{% static 'point.png'%}"></a></p>
+        <p id="a"><a href="{% url 'shop' %}"><img class="point" src="{% static 'shop.png'%}"></a></p>
+    </div>
+    <a href="{% url 'geo' %}"><p id="trip">Начать путешествие</p></a>
     <p id="had"></p>
 
     <script>
         const balanceP = document.getElementById('balance');
         const had = document.getElementById('had');
         let id = document.cookie.split("; ")
-                .find((row) => row.startsWith("id")).slice(3)
+                .find((row) => row.startsWith("id"))
+        let tg = window.Telegram.WebApp
         let idTg = ''
         if (id){
-            idTg = id
-        }else {let tg = window.Telegram.WebApp
-        idTg = tg.initDataUnsafe.user.id}
+            idTg = id.slice(3)
+        }else if (tg.initDataUnsafe.user) {
+        idTg = tg.initDataUnsafe.user.id
+        }else {
+            let date = new Date()
+            idTg = date.getTime()
+        }
+
         document.cookie = "id=" + idTg.toString()
 
 
@@ -42,7 +56,7 @@
         });
         balance.then(response=>response.json())
             .then(balance => {
-                balanceP.innerText += balance[0]
+                balanceP.innerText += "Баланс: "+balance[0]+"₲"
                 had.innerText = balance[1]
             })
     </script>

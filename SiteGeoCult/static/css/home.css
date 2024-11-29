@@ -1,4 +1,49 @@
-*{
-    width:900px;
-    height:1600px;
+html{
+    background: -webkit-linear-gradient(90deg, #68a4dd90,#2ebf8c90);
+
+    height:100%;
+}
+#balance{
+    height:48px;
+    width:300px;
+    background-color: #68A4DD;
+    text-align: center;
+    font-family: "Margarine", sans-serif;
+    border-radius: 20px;
+    box-shadow: 0px 1px 20px #00000090;
+    font-size: 32px;
+    margin-left:auto;
+    margin-right:6%;
+}
+.point{
+    width:50px;
+    height:50px;
+    background-color: #68A4DD;
+    border-radius: 25px; 
+    box-shadow: 0px 1px 20px #00000090;
+}
+#trip{
+    height:48px;
+    font-family: "Caveat", cursive;
+    margin:auto;
+    color:#00000060;
+    background-color: #2EBF8C;
+    width:350px;
+    font-size: 36px;
+    border-radius: 50px;
+    box-shadow: 0px 1px 20px #00000090;
+    text-align: center;
+    margin-top: 20px;
+}
+a{
+    text-decoration: none;
+}
+.menu{
+    height:100px;
+}
+#had{
+    height:20px;
+}
+#a{
+    padding-left: 88%;
 }

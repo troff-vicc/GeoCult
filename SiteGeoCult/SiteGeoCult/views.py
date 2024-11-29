@@ -13,7 +13,7 @@ def get_place_SQL(idTg):
     idList = data[idTg]['place']
     listPlace = []
     for idPlace in idList:
-        place = list(cursor.execute(f'SELECT * FROM place WHERE id={idPlace}').fetchone())
+        place = list(cursor.execute(f'SELECT * FROM place WHERE id={int(idPlace)}').fetchone())
         place[3] = str(place[3])[2:-1]
         listPlace.append(place)
     return listPlace

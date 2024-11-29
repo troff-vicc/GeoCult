@@ -17,7 +17,7 @@
     let y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
 
     return {posX: x, posY: y, idPlace: document.cookie.split("; ")
-                .find((row) => row.startsWith("place")).slice(5),
+                .find((row) => row.startsWith("place")).slice(6),
             idUser: document.cookie.split("; ")
                 .find((row) => row.startsWith("id")).slice(3)}
 }

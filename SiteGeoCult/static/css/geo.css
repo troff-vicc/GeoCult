@@ -1,0 +1,48 @@
+html{
+    background: -webkit-linear-gradient(90deg, #68a4dd90,#2ebf8c90);
+    height:100%;
+}
+.photo{
+    width:400px;
+    height:300px;
+}
+.start{
+        height:48px;
+        font-family: "Caveat", cursive;
+        margin:auto;
+        color:#00000060;
+        background-color: #2EBF8C;
+        width:350px;
+        font-size: 36px;
+        border-radius: 50px;
+        box-shadow: 0px 1px 20px #00000090;
+        text-align: center;
+        margin-top: 20px;
+}
+.inform{
+    text-align: center;
+}
+#back{
+    height:50px;
+    width:56px;
+    background-color: #68A4DD;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0px 1px 20px #00000090;
+   margin-left:20px;
+   margin-top:20px;
+}
+#arrow{
+padding-top: 8px;
+padding-left: 2px;
+height:33px;
+width:33px;
+}
+.info{
+    width:400px;
+    margin:auto;
+}
+.name{
+    width:400px;
+    margin:auto;
+}
