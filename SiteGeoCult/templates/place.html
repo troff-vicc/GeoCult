@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Place</title>
+</head>
+<body>
+{% for place in list_place %}
+    <div class="containers">
+        <img src="data:image/gif;base64,{{place.3}}" alt="place_photo">
+        <p>{{place.1}}</p>
+        <br>
+        <p>{{place.2}}</p>
+    </div>
+{% endfor %}
+</body>
+</html>

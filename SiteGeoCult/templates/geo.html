@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geo</title>
+</head>
+<body>
+<img src="data:image/gif;base64,{{place.3}}" alt="place_photo">
+<p>{{place.1}}</p>
+<p>{{place.2}}</p>
+<button onclick="Start()">Начать</button>
+<script>
+    function Start() {
+        document.cookie = "place=" + {{place.0}}
+        window.location.replace("{% url 'map' %}")
+    }
+</script>
+</body>
+</html>

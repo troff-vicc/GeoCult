@@ -7,15 +7,20 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <p id="balance"></p>
+    <p id="balance">Ваш баланс: </p>
     <h1>GeoCult</h1>
-    <a href="{% url 'myPlace' %}">Мои места</a>
+    <a href="{% url 'my_place' %}">Мои места</a>
+    <a href="{% url 'geo' %}">Начать путешествие</a>
 
     <script>
         const balanceP = document.getElementById('balance');
-        let tg = window.Telegram.WebApp
-        let idTg = tg.initDataUnsafe.user.id
-
+        let id = document.cookie.split("; ")
+                .find((row) => row.startsWith("id")).slice(3)
+        let idTg = ''
+        if (id){
+            idTg = id
+        }else {let tg = window.Telegram.WebApp
+        idTg = tg.initDataUnsafe.user.id}
         document.cookie = "id=" + idTg.toString()
 
 
@@ -33,7 +38,7 @@
         });
         balance.then(response=>response.json())
             .then(balance => {
-                balanceP.value = balance
+                balanceP.innerText += balance
             })
     </script>
 </body>

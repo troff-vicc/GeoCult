@@ -21,5 +21,8 @@ from django.urls import include
 
 urlpatterns = [
     path('', views.index, name='home'),
+    path('place', views.place, name='my_place'),
+    path('geo', views.geo, name='geo'),
+    path('map', views.map, name='map'),
     path('api/', include('API.urls')),
 ]
