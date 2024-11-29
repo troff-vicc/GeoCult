@@ -1,5 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,16 +11,18 @@
 <script>
     const reward = document.getElementById('reward')
     const map = document.getElementById('map')
-    function GetPos() {
-        let data={
-            posX: event.clientX,
-            posY: event.clientY,
-            idPlace: document.cookie.split("; ")
+    function getPosition() {
+    let e = window.event;
+    let x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+    let y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+
+    return {posX: x, posY: y, idPlace: document.cookie.split("; ")
                 .find((row) => row.startsWith("place")).slice(5),
             idUser: document.cookie.split("; ")
-                .find((row) => row.startsWith("id")).slice(3)
-        };
-
+                .find((row) => row.startsWith("id")).slice(3)}
+}
+    function GetPos() {
+        let data = getPosition()
         let json = JSON.stringify(data);
         let listReward = fetch('/api/pos', {
             method: "POST",
@@ -32,7 +34,7 @@
 
         listReward.then(response=>response.json())
             .then(rewardN => {
-                reward.innerText = rewardN[0] + 'троя награда     ' + rewardN[1] + 'м'
+                reward.innerText = `${rewardN[0]} твоя награда ${rewardN[1]} м`
             })
         map.style.opacity = 0
     }

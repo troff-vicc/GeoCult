@@ -5,8 +5,8 @@ from rest_framework import status
 import json
 import math
 import sqlite3
-DelX = (51.757494 - 51.614306) / 4.191
-DelY = (39.097896 - 39.333832) / 4.473
+DelX = (39.270428 - 39.180551) / (2619 - 914)
+DelY = (51.712880 - 51.664407) / (1812 - 318)
 listBuy = [400, 200, 300, 350]
 listHad = ['Цилиндр', 'Шапка', 'Кепка', 'Шляпа']
 
@@ -48,25 +48,23 @@ def coordinate_place(id_place: int):
     return place_x, place_y
 
 
-def convert_cor(x, y):
-    return float(x)*DelX, float(y)*DelY
+def convert_cor(y, x):
+    return 51.722721 + float(y)*DelY, 39.130576 + float(x)*DelX
 
 
 def get_reward(coordinate, idPlace, idUser):
-    print(coordinate)
-    place_x1, place_y1 = coordinate_place(idPlace)
-    place_x2, place_y2 = coordinate
-    print(place_x1, place_y1)
+    place_y1, place_x1 = coordinate_place(idPlace)
+    place_y2, place_x2 = coordinate
     dist = math.hypot(float(place_x2) - float(place_x1), float(place_y2) - float(place_y1))
     print(dist)
     distM = int(28114 * dist)
-    reward = int(1/dist*2140)
+    reward = int(1/dist)
     with open('data.json', 'r') as json_file:
         data = json.load(json_file)
         data[idUser]['balance'] = str(int(data[idUser]['balance']) + reward)
     with open('data.json', 'w') as json_file:
         json.dump(data, json_file)
-    return distM, reward
+    return reward, distM
 
 
 def get_balance(idTg):
@@ -102,7 +100,7 @@ class Positions(APIView):
             idPlace = serializer.validated_data['idPlace']
             idUser = serializer.validated_data['idUser']
             
-            lisDate = get_reward(convert_cor(posX, posY), idPlace, idUser)
+            lisDate = get_reward(convert_cor(posY, posX), idPlace, idUser)
             return Response(lisDate, status=status.HTTP_201_CREATED)
 
 
