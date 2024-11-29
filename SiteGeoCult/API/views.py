@@ -5,9 +5,21 @@ from rest_framework import status
 import json
 import math
 import sqlite3
-DelX = (51.757494 - 51.614306) / 4191
-DelY = (39.097896 - 39.333832) / 4473
+DelX = (51.757494 - 51.614306) / 4.191
+DelY = (39.097896 - 39.333832) / 4.473
 listBuy = [400, 200, 300, 350]
+listHad = ['Цилиндр', 'Шапка', 'Кепка', 'Шляпа']
+
+
+def get_had(idTg):
+    with open('data.json', 'r') as json_file:
+        data = json.load(json_file)
+        idChat = idTg
+        had = data[idChat]['had']
+    hadN = []
+    for h in had:
+        hadN.append(listHad[int(h)])
+    return hadN
 
 
 def checkBuy(idBuy, idUser):
@@ -19,6 +31,7 @@ def checkBuy(idBuy, idUser):
         with open('data.json', 'r') as json_file:
             data = json.load(json_file)
             data[idUser]['balance'] = str(int(data[idUser]['balance']) - listBuy[int(idBuy)])
+            data[idUser]['had'] = data[idUser]['had'] + [idBuy]
         with open('data.json', 'w') as json_file:
             json.dump(data, json_file)
         return True
@@ -40,9 +53,12 @@ def convert_cor(x, y):
 
 
 def get_reward(coordinate, idPlace, idUser):
+    print(coordinate)
     place_x1, place_y1 = coordinate_place(idPlace)
     place_x2, place_y2 = coordinate
+    print(place_x1, place_y1)
     dist = math.hypot(float(place_x2) - float(place_x1), float(place_y2) - float(place_y1))
+    print(dist)
     distM = int(28114 * dist)
     reward = int(1/dist*2140)
     with open('data.json', 'r') as json_file:
@@ -62,7 +78,7 @@ def get_balance(idTg):
     else:
         with open('data.json', 'w') as json_file:
             balance = '500'
-            data[idChat] = {'balance': '500', 'place': []}
+            data[idChat] = {'balance': '500', 'place': [], "had": []}
             json.dump(data, json_file)
     return balance
 
@@ -73,7 +89,8 @@ class Balance(APIView):
         
         if serializer.is_valid():
             idTg = serializer.validated_data['idTg']
-            return Response(get_balance(idTg), status=status.HTTP_201_CREATED)
+            
+            return Response((get_balance(idTg), get_had(idTg)), status=status.HTTP_201_CREATED)
 
 
 class Positions(APIView):

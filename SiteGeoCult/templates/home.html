@@ -13,9 +13,11 @@
     <a href="{% url 'my_place' %}">Мои места</a>
     <a href="{% url 'shop' %}">Магазин</a>
     <a href="{% url 'geo' %}">Начать путешествие</a>
+    <p id="had"></p>
 
     <script>
         const balanceP = document.getElementById('balance');
+        const had = document.getElementById('had');
         let id = document.cookie.split("; ")
                 .find((row) => row.startsWith("id")).slice(3)
         let idTg = ''
@@ -40,7 +42,8 @@
         });
         balance.then(response=>response.json())
             .then(balance => {
-                balanceP.innerText += balance
+                balanceP.innerText += balance[0]
+                had.innerText = balance[1]
             })
     </script>
 </body>

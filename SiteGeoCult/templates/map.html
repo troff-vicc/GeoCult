@@ -7,15 +7,18 @@
 </head>
 <body>
     <p id="reward"></p>
-    <img src="{% static 'img.png'%}" alt="logo" onclick="GetPos()">
+    <img src="{% static 'img.png'%}" alt="logo" onclick="GetPos()" id="map">
 <script>
     const reward = document.getElementById('reward')
+    const map = document.getElementById('map')
     function GetPos() {
         let data={
             posX: event.clientX,
             posY: event.clientY,
             idPlace: document.cookie.split("; ")
-                .find((row) => row.startsWith("place")).slice(5)
+                .find((row) => row.startsWith("place")).slice(5),
+            idUser: document.cookie.split("; ")
+                .find((row) => row.startsWith("id")).slice(3)
         };
 
         let json = JSON.stringify(data);
@@ -29,8 +32,9 @@
 
         listReward.then(response=>response.json())
             .then(rewardN => {
-                reward.innerText = rewardN
+                reward.innerText = rewardN[0] + 'троя награда     ' + rewardN[1] + 'м'
             })
+        map.style.opacity = 0
     }
 </script>
 </body>
