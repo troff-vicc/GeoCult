@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import Balance
+from .views import Balance, Positions, Buy
 
 urlpatterns = [
     path('balance', Balance.as_view(), name='balance'),
+    path('pos', Positions.as_view(), name='pos'),
+    path('buy', Buy.as_view(), name='buy'),
 ]

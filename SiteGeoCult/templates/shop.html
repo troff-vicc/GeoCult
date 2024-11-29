@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин</title>
+</head>
+<body>
+<div onclick="Buy(0)">
+<p>Цилиндр</p>
+<p>400</p>
+</div>
+<div onclick="Buy(1)">
+<p>Шапка</p>
+<p>200</p>
+</div>
+<div onclick="Buy(2)">
+<p>Кепка</p>
+<p>300</p>
+</div>
+<div onclick="Buy(3)">
+<p>Шляпа</p>
+<p>350</p>
+</div>
+<script>
+    function Buy(id) {
+        let data={
+            idBuy: id,
+            idUser: document.cookie.split("; ")
+                .find((row) => row.startsWith("id")).slice(3)
+            };
+
+        let json = JSON.stringify(data);
+        let success = fetch('/api/buy', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json
+        });
+        success.then(response=>response.json())
+            .then(successN => {
+                reward.innerText = successN
+            })
+        window.location.replace("{% url 'home' %}")
+    }
+</script>
+</body>
+</html>

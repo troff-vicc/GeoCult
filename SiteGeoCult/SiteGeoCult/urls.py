@@ -24,5 +24,6 @@ urlpatterns = [
     path('place', views.place, name='my_place'),
     path('geo', views.geo, name='geo'),
     path('map', views.map, name='map'),
+    path('shop', views.shop, name='shop'),
     path('api/', include('API.urls')),
 ]

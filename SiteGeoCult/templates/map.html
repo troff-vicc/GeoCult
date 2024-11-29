@@ -6,6 +6,32 @@
     <title>map</title>
 </head>
 <body>
-    <img src="{% static 'img.png'%}" alt="logo">
+    <p id="reward"></p>
+    <img src="{% static 'img.png'%}" alt="logo" onclick="GetPos()">
+<script>
+    const reward = document.getElementById('reward')
+    function GetPos() {
+        let data={
+            posX: event.clientX,
+            posY: event.clientY,
+            idPlace: document.cookie.split("; ")
+                .find((row) => row.startsWith("place")).slice(5)
+        };
+
+        let json = JSON.stringify(data);
+        let listReward = fetch('/api/pos', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: json
+        });
+
+        listReward.then(response=>response.json())
+            .then(rewardN => {
+                reward.innerText = rewardN
+            })
+    }
+</script>
 </body>
 </html>

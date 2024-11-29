@@ -1,5 +1,6 @@
 import asyncio
 from ymaps import GeocodeAsync
+'''
 import sqlite3
 import base64
 
@@ -23,4 +24,3 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     print(loop.run_until_complete(geocodeAddress('Воронеже, ул. Карла Маркса, 72')))
 #Воронеж, ул. Орджоникидзе, 39
-'''

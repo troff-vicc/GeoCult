@@ -54,3 +54,7 @@ def map(request):
     if not request.COOKIES.get('id'):
         return HttpResponseRedirect('/')
     return render(request, 'map.html')
+
+
+def shop(request):
+    return render(request, 'shop.html')
