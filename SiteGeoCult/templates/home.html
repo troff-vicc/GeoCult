@@ -20,12 +20,11 @@
         <p id="a"><a href="{% url 'my_place' %}"><img class="point" src="{% static 'point.png'%}"></a></p>
         <p id="a"><a href="{% url 'shop' %}"><img class="point" src="{% static 'shop.png'%}"></a></p>
     </div>
+    <img id="kent" src="{% static 'kent.png'%}">
     <a href="{% url 'geo' %}"><p id="trip">Начать путешествие</p></a>
-    <p id="had"></p>
 
     <script>
         const balanceP = document.getElementById('balance');
-        const had = document.getElementById('had');
         let id = document.cookie.split("; ")
                 .find((row) => row.startsWith("id"))
         let tg = window.Telegram.WebApp
@@ -57,7 +56,13 @@
         balance.then(response=>response.json())
             .then(balance => {
                 balanceP.innerText += "Баланс: "+balance[0]+"₲"
-                had.innerText = balance[1]
+                for (let i = 0; i < balance[1].length; i++) {
+                    let img = document.createElement('img')
+                    img.id = balance[1][i].slice(0, -4)
+                    img.src = `static/${balance[1][i]}`
+                    img.className = "imgHat"
+                    document.getElementById('kent').before(img)
+                }
             })
     </script>
 </body>

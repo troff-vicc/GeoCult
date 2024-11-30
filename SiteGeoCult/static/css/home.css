@@ -33,8 +33,9 @@ html{
     border-radius: 50px;
     box-shadow: 0px 1px 20px #00000090;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 450px;
 }
+
 a{
     text-decoration: none;
 }
@@ -47,3 +48,32 @@ a{
 #a{
     padding-left: 88%;
 }
+#kent{
+    position: absolute;
+    top:140px;
+    left:30px;
+    z-index: 0;
+}
+.imgHat{
+    position: absolute;
+    height:80px;
+    top: 136px;
+
+}
+#cel {
+        left: 50px;
+        z-index: 10;
+    }
+    #shluap{
+        left: 90px;
+        z-index: 11;
+    }
+    #tomas{
+        left: 130px;
+        z-index: 12;
+    }
+    #hat{
+        left: 170px;
+        z-index: 9;
+    }
+

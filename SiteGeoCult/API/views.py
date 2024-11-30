@@ -8,7 +8,7 @@ import sqlite3
 DelX = (39.270428 - 39.180551) / (2619 - 914)
 DelY = (51.712880 - 51.664407) / (1812 - 318)
 listBuy = [400, 200, 300, 350]
-listHad = ['Цилиндр', 'Шапка', 'Кепка', 'Шляпа']
+listHad = ['cel.png', 'hat.png', 'tomas.png', 'shluap.png']
 
 
 def get_had(idTg):
@@ -66,7 +66,8 @@ def get_reward(coordinate, idPlace, idUser):
     with open('data.json', 'r') as json_file:
         data = json.load(json_file)
         data[idUser]['balance'] = str(int(data[idUser]['balance']) + reward)
-        data[idUser]['place'] = data[idUser]['place'] + [idPlace]
+        if not (idPlace in data[idUser]['place']):
+            data[idUser]['place'] = data[idUser]['place'] + [idPlace]
     with open('data.json', 'w') as json_file:
         json.dump(data, json_file)
     return reward, distM
