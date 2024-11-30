@@ -37,7 +37,13 @@ def checkBuy(idBuy, idUser):
             with open('data.json', 'w') as json_file:
                 json.dump(data, json_file)
             return 'success'
-        return 'already'
+        with open('data.json', 'r') as json_file:
+            data = json.load(json_file)
+            data[idUser]['balance'] = str(int(data[idUser]['balance']) - listBuy[int(idBuy)])
+            data[idUser]['had'] = data[idUser]['had'] + [idBuy]
+        with open('data.json', 'w') as json_file:
+            json.dump(data, json_file)
+        return 'success'
     return 'There are not enough funds'
 
 
