@@ -8,7 +8,7 @@ import sqlite3
 DelX = (39.270428 - 39.180551) / (2619 - 914)
 DelY = (51.712880 - 51.664407) / (1812 - 318)
 listBuy = [400, 200, 300, 350]
-listHad = ['cel.png', 'hat.png', 'tomas.png', 'shluap.png']
+listHad = ['cel.png', 'hat.png', 'shluap.png', 'tomas.png']
 
 
 def get_had(idTg):

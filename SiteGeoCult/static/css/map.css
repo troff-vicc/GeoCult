@@ -11,17 +11,20 @@ html{
     height:105px;
     font-family: "Caveat", cursive;
     margin:auto;
+    margin-top: 300px;
     color:#00000060;
     background-color: #2EBF8C;
-    width:550px;
+    width:400px;
     font-size: 36px;
     border-radius: 50px;
     box-shadow: 0px 1px 20px #00000090;
     text-align: center;
     #reward{
+        margin-bottom: 10px;
         margin-top: 10px;
     }
     #fail{
+        margin-top: 5px;
         margin-bottom: 10px;
     }
 }
@@ -38,4 +41,13 @@ html{
 #arrow{
     padding-top: 8px;
     padding-left: 2px;
+}
+#attem{
+    height:100%;
+    display: flex;
+    justify-content: center;
+}
+a{
+    color:#00000060;
+    text-decoration: none;
 }
